@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Cilium Zero Trust Policy Visualizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Cilium Zero Trust Policy Visualizer</h1>
+    <p>Live view of allowed/denied flows based on eBPF-enforced Zero Trust policies.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Policy Rules</h2>
+      <table id="policy-table">
+        <thead>
+          <tr>
+            <th>Source IP</th>
+            <th>Destination IP</th>
+            <th>Dst Port</th>
+            <th>Protocol</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Observed Flows</h2>
+      <table id="flows-table">
+        <thead>
+          <tr>
+            <th>Source IP</th>
+            <th>Destination IP</th>
+            <th>Src Port</th>
+            <th>Dst Port</th>
+            <th>Protocol</th>
+            <th>Allowed</th>
+            <th>Denied</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>Backend API: <code>/api/flows</code> &amp; <code>/api/policy</code> from loader.py</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

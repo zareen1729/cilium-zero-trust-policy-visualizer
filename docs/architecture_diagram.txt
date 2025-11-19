@@ -1,0 +1,31 @@
++-------------------------------+          +-------------------------+
+|           Browser             |          |       kubectl / host    |
+|  - index.html / app.js       |          |  - deploy / debug       |
++---------------+---------------+          +-------------------------+
+                |   HTTP (8080)
+                v
++---------------------------------------------------------------+
+|                   User-space Loader (loader.py)               |
+|  - BCC: load & attach xdp_zt_policy                           |
+|  - Load YAML policy -> policy_map                             |
+|  - Flask API: /api/policy, /api/flows                         |
++---------------------+---------------------+-------------------+
+                      |                     |
+          BPF syscalls|                     |REST/JSON
+                      v                     v
+           +-------------------+     +-------------------------+
+           |   eBPF program    |     |       Web UI           |
+           |  xdp_zt_policy    |     |  - Renders tables      |
+           |                   |     |  - Periodic refresh    |
+           +---------+---------+     +-------------------------+
+                     |
+                     | XDP hook on NIC
+                     v
+           +---------------------------+
+           | Linux Networking Stack    |
+           | - Ingress packets         |
+           | - Drop / pass decisions   |
+           +-------------+-------------+
+                         |
+                         v
+                  Actual Pod / Host

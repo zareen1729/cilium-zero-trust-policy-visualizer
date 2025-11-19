@@ -1,0 +1,11 @@
+rules:
+  - src_ip: 10.0.0.10
+    dst_ip: 10.0.0.20
+    dst_port: 80
+    proto: tcp
+    action: allow
+  - src_ip: 10.0.0.11
+    dst_ip: 10.0.0.21
+    dst_port: 443
+    proto: tcp
+    action: deny

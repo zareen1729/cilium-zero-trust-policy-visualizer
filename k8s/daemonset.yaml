@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cilium-zero-trust-visualizer
+  labels:
+    app: cilium-zero-trust-visualizer
+spec:
+  selector:
+    matchLabels:
+      app: cilium-zero-trust-visualizer
+  template:
+    metadata:
+      labels:
+        app: cilium-zero-trust-visualizer
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: visualizer
+          image: your-docker-registry/cilium-zero-trust-visualizer:latest
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: bpf
+              mountPath: /sys/fs/bpf
+          env:
+            - name: IFACE
+              value: eth0
+          command: ["python3"]
+          args:
+            - "loader.py"
+            - "--iface"
+            - "$(IFACE)"
+            - "--policy"
+            - "./config/policy.yaml"
+          workingDir: /app/user
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+      volumes:
+        - name: bpf
+          hostPath:
+            path: /sys/fs/bpf
+            type: DirectoryOrCreate
