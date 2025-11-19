@@ -1,7 +1,5 @@
 # Cilium Zero Trust Policy Visualizer
 
-> Project name: **Cilium Zero Trust Policy Visualizer**  
-
 ## What problem is it solving?
 The project is a mini, Cilium-inspired lab that answers:
 
