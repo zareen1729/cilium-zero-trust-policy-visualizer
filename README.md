@@ -6,9 +6,9 @@ The project is a mini, Cilium-inspired lab that answers:
 #### “If I enforce Zero Trust network policies with eBPF, what exactly is being allowed and denied, and can I see it live?”
 
 So it focuses on:
-Zero Trust: default deny; only explicitly allowed flows are permitted.
-eBPF/XDP: enforcing rules directly in the kernel as early as possible (before the normal network stack).
-Visualization: giving a UI + API to see which flows are allowed/denied in real time.
+- Zero Trust: default deny; only explicitly allowed flows are permitted.
+- eBPF/XDP: enforcing rules directly in the kernel as early as possible (before the normal network stack).
+- Visualization: giving a UI + API to see which flows are allowed/denied in real time.
 
 ---
 
