@@ -1,20 +1,16 @@
 # Cilium Zero Trust Policy Visualizer
 
 > Project name: **Cilium Zero Trust Policy Visualizer**  
-> Track: Best Cilium Track Project (concept / demo implementation)
 
-This project is a small, end-to-end demo of a **Zero Trust network policy visualizer** inspired by Cilium and eBPF-based enforcement.
+## What problem is it solving?
+The project is a mini, Cilium-inspired lab that answers:
 
-It includes:
+## “If I enforce Zero Trust network policies with eBPF, what exactly is being allowed and denied, and can I see it live?”
 
-- ✔ Full GitHub repo layout
-- ✔ Architecture diagram and docs
-- ✔ eBPF/XDP enforcement code
-- ✔ User-space loader & REST API (Python + BCC)
-- ✔ Minimal Web UI (HTML + JS)
-- ✔ Full execution steps
-- ✔ Demo script
-- ✔ Container & Kubernetes deployment example
+So it focuses on:
+Zero Trust: default deny; only explicitly allowed flows are permitted.
+eBPF/XDP: enforcing rules directly in the kernel as early as possible (before the normal network stack).
+Visualization: giving a UI + API to see which flows are allowed/denied in real time.
 
 ---
 
@@ -139,7 +135,7 @@ pip3 install bcc flask pyyaml
 Clone the repo structure into a directory, e.g.:
 
 ```bash
-git clone <this-repo-url> cilium-zero-trust-policy-visualizer
+git clone http:/github/zareen1729/cilium-zero-trust-policy-visualizer
 cd cilium-zero-trust-policy-visualizer
 ```
 
@@ -167,7 +163,6 @@ What it does:
 ## 7. Running Dockerized
 
 > Note: eBPF / XDP in a container requires **privileged mode** and access to `/sys/fs/bpf`.  
-> This Dockerfile is mainly for **controlled environments / lab demos**.
 
 ### 7.1. Build Image
 
@@ -233,44 +228,15 @@ kubectl get pods -o wide -l app=cilium-zero-trust-visualizer
 
 ---
 
-## 9. Demo Script & Suggested Live Flow
+## 9. Notes & Limitations
 
-You can use `scripts/demo.sh` to do a **live demo**:
-
-1. Start demo:
-
-   ```bash
-   sudo ./scripts/demo.sh eth0
-   ```
-
-2. In another terminal, generate both allowed and denied flows:
-
-   - Allowed: connect between IPs defined as `allow` in `policy.yaml`.
-   - Denied: connect from/to IPs or ports not in policy.
-
-3. Observe:
-
-   - `curl http://localhost:8080/api/flows` shows counters increasing.
-   - Web UI updates tables automatically every few seconds.
-
-4. Explain the **Zero Trust** model:
-
-   - *Default: deny all traffic.*
-   - Any new service-to-service communication must be explicitly added to policy.yaml.
-   - Visualization helps teams see which flows are being attempted vs allowed.
-
----
-
-## 10. Notes & Limitations
-
-- This is a **demo / hackathon-grade** implementation, not production-hardened.
 - Only **IPv4 + TCP/UDP** flows are parsed.
 - `policy.yaml` currently supports only exact IP matches (no CIDR expansion).
-- Error handling, scalability, and security hardening are intentionally simplified.
+- Error handling, scalability and security hardening are intentionally simplified.
 
 ---
 
-## 11. Extending Toward Cilium
+## 10. Extending Toward Cilium
 
 To bring this closer to a real Cilium integration:
 
@@ -280,5 +246,3 @@ To bring this closer to a real Cilium integration:
 - Add graph visualizations (e.g., D3.js) to show service-to-service Zero Trust topology.
 
 ---
-
-Happy hacking! 🚀
