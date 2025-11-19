@@ -3,7 +3,7 @@
 ## What problem is it solving?
 The project is a mini, Cilium-inspired lab that answers:
 
-### “If I enforce Zero Trust network policies with eBPF, what exactly is being allowed and denied, and can I see it live?”
+#### “If I enforce Zero Trust network policies with eBPF, what exactly is being allowed and denied, and can I see it live?”
 
 So it focuses on:
 Zero Trust: default deny; only explicitly allowed flows are permitted.
